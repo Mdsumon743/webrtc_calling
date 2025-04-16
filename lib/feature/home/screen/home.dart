@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:webrtc_calling/feature/home/controller/controller.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController id = TextEditingController();
+    final controller = Get.put(HomeController());
     return Scaffold(
       body: Center(
         child: Padding(
@@ -20,9 +22,10 @@ class Home extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TextFormField(
-                  controller: id,
+                  controller: controller.id,
                   cursorColor: Colors.green,
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(0),
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
