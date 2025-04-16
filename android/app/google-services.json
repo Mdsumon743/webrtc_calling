@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "925021402964",
+    "project_id": "vacation-rental-filter-project",
+    "storage_bucket": "vacation-rental-filter-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925021402964:android:5a5b00a753939ada9dbac1",
+        "android_client_info": {
+          "package_name": "com.example.webrtc_calling"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5PjuIrdqybXX2EcG4B4dfr2BrAVgGb3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
