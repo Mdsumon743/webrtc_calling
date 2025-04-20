@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:webrtc_calling/feature/home/screen/home.dart';
+import 'package:webrtc_calling/feature/auth/screen/home.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -1,10 +1,6 @@
-import 'package:firebase_core/firebase_core.dart' show Firebase;
-import 'package:flutter/material.dart';
-import 'package:webrtc_calling/app.dart' show MyApp;
-import 'package:webrtc_calling/firebase_options.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:webrtc_calling/app.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+void main() {
   runApp(MyApp());
 }

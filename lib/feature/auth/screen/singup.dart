@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:webrtc_calling/feature/home/controller/controller.dart';
+import 'package:webrtc_calling/core/global/custom_text.dart';
+import 'package:webrtc_calling/core/global/custom_textfeild.dart';
+import 'package:webrtc_calling/feature/auth/controller/controller.dart';
+import 'package:webrtc_calling/feature/auth/screen/home.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Singup extends StatelessWidget {
+  const Singup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +18,16 @@ class Home extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextFormField(
-                  controller: controller.id,
-                  cursorColor: Colors.green,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(0),
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                  ),
-                ),
+              CustomTextPopins(
+                text: "Sing Up",
+                size: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
               ),
+              SizedBox(height: 40),
+              CustomTextfeild(controller: controller.semail, lebel: "Email"),
+              SizedBox(height: 10),
+              CustomTextfeild(controller: controller.spass, lebel: "Password"),
 
               SizedBox(height: 20),
               ElevatedButton(
@@ -45,12 +41,24 @@ class Home extends StatelessWidget {
 
                 onPressed: () {},
                 child: Text(
-                  "Join",
+                  "Singup",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
+                ),
+              ),
+
+              TextButton(
+                onPressed: () {
+                  Get.to(() => Home());
+                },
+                child: CustomTextPopins(
+                  text: 'Login',
+                  fontWeight: FontWeight.w500,
+                  size: 20,
+                  color: Colors.black,
                 ),
               ),
             ],
