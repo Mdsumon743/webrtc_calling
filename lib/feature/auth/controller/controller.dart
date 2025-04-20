@@ -19,6 +19,8 @@ class HomeController extends GetxController {
         email: semail.text,
         password: spass.text,
       );
+
+      debugPrint("===========Signup=====");
       await _firestore.collection('user').doc(userCredential.user?.uid).set({
         "email": semail.text,
         "password": spass.text,

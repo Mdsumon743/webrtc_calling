@@ -39,7 +39,9 @@ class Singup extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 100, vertical: 10),
                 ),
 
-                onPressed: () {},
+                onPressed: () {
+                  controller.signUpWithEmailAndPassword();
+                },
                 child: Text(
                   "Singup",
                   style: TextStyle(
