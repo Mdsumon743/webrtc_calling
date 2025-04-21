@@ -2,6 +2,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 
 class VideoCallScreen extends StatefulWidget {
@@ -27,12 +28,31 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     super.initState();
     _initRenderers();
     _firestore = FirebaseFirestore.instance;
+    getCameraAndMicPermissions();
   }
 
   Future<void> _initRenderers() async {
     await _localRenderer.initialize();
     await _remoteRenderer.initialize();
   }
+
+
+  Future<bool> getCameraAndMicPermissions() async {
+
+    PermissionStatus cameraStatus = await Permission.camera.request();
+
+
+    PermissionStatus micStatus = await Permission.microphone.request();
+
+
+    if (cameraStatus.isGranted && micStatus.isGranted) {
+      return true;
+    } else {
+    
+      return false;
+    }
+  }
+
 
   Future<void> _openCamera() async {
     final stream = await navigator.mediaDevices.getUserMedia({
@@ -167,119 +187,109 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     super.dispose();
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: Colors.grey[100],
-    appBar: AppBar(
-      title: const Text('WebRTC Video Call'),
-      backgroundColor: Colors.blueAccent,
-    ),
-    body: SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          LayoutBuilder(
-            builder: (context, constraints) {
-              bool isWide = constraints.maxWidth > 600;
-              return Flex(
-                direction: isWide ? Axis.horizontal : Axis.vertical,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 10,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      height: isWide ? 300 : 200,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: RTCVideoView(_localRenderer, mirror: true),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 10,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      height: isWide ? 300 : 200,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: RTCVideoView(_remoteRenderer),
-                      ),
-                    ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: const Text('WebRTC Video Call'),
+        backgroundColor: Colors.blueAccent,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+         
+            Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
                   ),
                 ],
-              );
-            },
-          ),
-          const SizedBox(height: 20),
-          TextField(
-            controller: _roomIdController,
-            textAlign: TextAlign.center,
-            decoration: InputDecoration(
-              hintText: 'Enter Room ID',
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
               ),
-              contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+              height: 200,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: RTCVideoView(_localRenderer, mirror: true),
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton.icon(
-                onPressed: _createRoom,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+
+       
+            Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
                   ),
-                ),
-                icon: const Icon(Icons.video_call),
-                label: const Text('Create Room'),
+                ],
               ),
-              ElevatedButton.icon(
-                onPressed: _joinRoom,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+              height: 200,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: RTCVideoView(_remoteRenderer),
+              ),
+            ),
+
+            TextField(
+              controller: _roomIdController,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                hintText: 'Enter Room ID',
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: _createRoom,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
+                  icon: const Icon(Icons.video_call),
+                  label: const Text('Create Room'),
                 ),
-                icon: const Icon(Icons.login),
-                label: const Text('Join Room'),
-              ),
-            ],
-          ),
-        ],
+                ElevatedButton.icon(
+                  onPressed: _joinRoom,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  icon: const Icon(Icons.login),
+                  label: const Text('Join Room'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
 }
