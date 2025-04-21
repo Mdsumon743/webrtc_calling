@@ -47,30 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA5PjuIrdqybXX2EcG4B4dfr2BrAVgGb3w',
-    appId: '1:925021402964:android:5a5b00a753939ada9dbac1',
-    messagingSenderId: '925021402964',
-    projectId: 'vacation-rental-filter-project',
-    storageBucket: 'vacation-rental-filter-project.firebasestorage.app',
+    apiKey: 'AIzaSyBAdgT0QDC06jrxdAkj91dzFmBgu3cXPdw',
+    appId: '1:737437296770:android:1661e96e0be2535ddc6c9b',
+    messagingSenderId: '737437296770',
+    projectId: 'web-rtc-2b1c7',
+    storageBucket: 'web-rtc-2b1c7.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB3ar_ZdTcC1oXe_4lv028NFeC33QWl1Gc',
-    appId: '1:925021402964:ios:b9d7968dc6a82a189dbac1',
-    messagingSenderId: '925021402964',
-    projectId: 'vacation-rental-filter-project',
-    storageBucket: 'vacation-rental-filter-project.firebasestorage.app',
+    apiKey: 'AIzaSyA4yISOnAACD9a_XnEN885Fxz6BPeq5WS4',
+    appId: '1:737437296770:ios:42fa825d8b5833a6dc6c9b',
+    messagingSenderId: '737437296770',
+    projectId: 'web-rtc-2b1c7',
+    storageBucket: 'web-rtc-2b1c7.firebasestorage.app',
     iosBundleId: 'com.example.webrtcCalling',
   );
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCPX0_1IwQmxUdnzxPvZTaQZmb7etq2_oo',
-    appId: '1:925021402964:web:e7fa39627b1a6e839dbac1',
-    messagingSenderId: '925021402964',
-    projectId: 'vacation-rental-filter-project',
-    authDomain: 'vacation-rental-filter-project.firebaseapp.com',
-    storageBucket: 'vacation-rental-filter-project.firebasestorage.app',
-    measurementId: 'G-38BWJ26FHS',
+    apiKey: 'AIzaSyCiR0vBfO48sPrpQmst6Hwn7L8MBr7xTF0',
+    appId: '1:737437296770:web:756d8e3284855096dc6c9b',
+    messagingSenderId: '737437296770',
+    projectId: 'web-rtc-2b1c7',
+    authDomain: 'web-rtc-2b1c7.firebaseapp.com',
+    storageBucket: 'web-rtc-2b1c7.firebasestorage.app',
+    measurementId: 'G-5GFQ8KNXXS',
   );
 
 }

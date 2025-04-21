@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:webrtc_calling/feature/auth/screen/home.dart';
 import 'package:webrtc_calling/feature/home/controller/web_rtc_controller.dart';
+import 'package:webrtc_calling/feature/home/screen/calling.dart';
 
 class HomeController extends GetxController {
   final TextEditingController email = TextEditingController();
@@ -64,7 +65,7 @@ class HomeController extends GetxController {
       password: pass.text,
     );
     if (userCredential.user != null) {
-      Get.offAll(() => Calling());
+      Get.offAll(() => VideoCallScreen());
       debugPrint("=======${userCredential.user?.uid}");
       debugPrint("=======${userCredential.user?.email}");
     }

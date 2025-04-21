@@ -1,19 +1,7 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
@@ -29,91 +17,74 @@
   <title>webrtc_tutorial</title>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
   <!-- Firebase Configuration -->
   <script>
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCPX0_1IwQmxUdnzxPvZTaQZmb7etq2_oo",
-  authDomain: "vacation-rental-filter-project.firebaseapp.com",
-  projectId: "vacation-rental-filter-project",
-  storageBucket: "vacation-rental-filter-project.firebasestorage.app",
-  messagingSenderId: "925021402964",
-  appId: "1:925021402964:web:e7fa39627b1a6e839dbac1",
-  measurementId: "G-38BWJ26FHS"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyCiR0vBfO48sPrpQmst6Hwn7L8MBr7xTF0",
+      authDomain: "web-rtc-2b1c7.firebaseapp.com",
+      projectId: "web-rtc-2b1c7",
+      storageBucket: "web-rtc-2b1c7.firebasestorage.app",
+      messagingSenderId: "737437296770",
+      appId: "1:737437296770:web:756d8e3284855096dc6c9b",
+      measurementId: "G-5GFQ8KNXXS"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-    </script>
-  <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
   <script>
-    var serviceWorkerVersion = null;
-    var scriptLoaded = false;
+    const serviceWorkerVersion = '{{flutter_service_worker_version}}';
+    let scriptLoaded = false;
+
     function loadMainDartJs() {
-      if (scriptLoaded) {
-        return;
-      }
+      if (scriptLoaded) return;
       scriptLoaded = true;
-      var scriptTag = document.createElement('script');
+      const scriptTag = document.createElement('script');
       scriptTag.src = 'main.dart.js';
       scriptTag.type = 'application/javascript';
       document.body.append(scriptTag);
     }
 
     if ('serviceWorker' in navigator) {
-      // Service workers are supported. Use them.
-      window.addEventListener('load', function () {
-        // Wait for registration to finish before dropping the <script> tag.
-        // Otherwise, the browser will load the script multiple times,
-        // potentially different versions.
-        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
-        navigator.serviceWorker.register(serviceWorkerUrl)
-          .then((reg) => {
-            function waitForActivation(serviceWorker) {
-              serviceWorker.addEventListener('statechange', () => {
-                if (serviceWorker.state == 'activated') {
-                  console.log('Installed new service worker.');
-                  loadMainDartJs();
-                }
-              });
-            }
-            if (!reg.active && (reg.installing || reg.waiting)) {
-              // No active web worker and we have installed or are installing
-              // one for the first time. Simply wait for it to activate.
-              waitForActivation(reg.installing || reg.waiting);
-            } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
-              // When the app updates the serviceWorkerVersion changes, so we
-              // need to ask the service worker to update.
-              console.log('New service worker available.');
-              reg.update();
-              waitForActivation(reg.installing);
-            } else {
-              // Existing service worker is still good.
-              console.log('Loading app from service worker.');
-              loadMainDartJs();
-            }
-          });
+      window.addEventListener('load', () => {
+        const serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+        navigator.serviceWorker.register(serviceWorkerUrl).then((reg) => {
+          function waitForActivation(serviceWorker) {
+            serviceWorker.addEventListener('statechange', () => {
+              if (serviceWorker.state === 'activated') {
+                console.log('Installed new service worker.');
+                loadMainDartJs();
+              }
+            });
+          }
 
-        // If service worker doesn't succeed in a reasonable amount of time,
-        // fallback to plaint <script> tag.
+          if (!reg.active && (reg.installing || reg.waiting)) {
+            waitForActivation(reg.installing || reg.waiting);
+          } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
+            console.log('New service worker available.');
+            reg.update();
+            waitForActivation(reg.installing);
+          } else {
+            console.log('Loading app from service worker.');
+            loadMainDartJs();
+          }
+        });
+
         setTimeout(() => {
           if (!scriptLoaded) {
-            console.warn(
-              'Failed to load app from service worker. Falling back to plain <script> tag.',
-            );
+            console.warn('Failed to load app from service worker. Falling back to plain <script> tag.');
             loadMainDartJs();
           }
         }, 4000);
       });
     } else {
-      // Service workers not supported. Just drop the <script> tag.
       loadMainDartJs();
     }
   </script>
 </body>
+
 </html>
